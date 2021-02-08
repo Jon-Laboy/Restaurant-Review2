@@ -35,9 +35,8 @@ export default function App() {
     libraries
   });
 
-  const [userState, setUserState] = useState({
-    currentLatLng: { lat: 0, lng: 0 }
-  });
+  const [center, setCenter]= useState({lat:0,lng:0})
+
 
   const [newPlace, setNewPlace] = useState([]);
   // const [newPlaceSelected, setNewPlaceSelected] = useState(null);
@@ -82,7 +81,7 @@ export default function App() {
   useEffect(() => {
     async function fetchRestaurants() {
       const response = await fetch(
-        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${userState.currentLatLng.lat},${userState.currentLatLng.lng}&radius=6047&type=restaurant&key=${API_KEY}`
+        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${center.lat},${center.lng}&radius=6047&type=restaurant&key=${API_KEY}`
       );
       const data = await response.json();
       setPermUpdated(true)
@@ -99,8 +98,8 @@ export default function App() {
     }
     fetchRestaurants();
   }, [
-    userState.currentLatLng.lat,
-    userState.currentLatLng.lng,
+    center.lat,
+    center.lng,
     firstRating,
     secondRating
   ]);
@@ -110,7 +109,7 @@ export default function App() {
   function showCurrentLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        setUserState((prevState) => ({
+        setCenter((prevState) => ({
           currentLatLng: {
             ...prevState.currentLatLng,
             lat: position.coords.latitude,
