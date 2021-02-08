@@ -75,9 +75,9 @@ export default function App() {
   // USEEFFECT TO FETCH NEARBY RESTAURANTS
   useEffect(() => {
     async function fetchRestaurants() {
-      const response = await fetch(
-        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${center.lat},${center.lng}&radius=6047&type=restaurant&key=${API_KEY}`
-      );
+      const proxyurl = "https://cors-anywhere.herokuapp.com/";
+      const apiPlaceSearchUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${center.lat},${center.lng}&radius=6047&type=restaurant&key=${API_KEY}`
+      const response = await fetch(proxyurl + apiPlaceSearchUrl);
       const data = await response.json();
       const filteredRatings =
         data.results &&
