@@ -38,8 +38,9 @@ export default function App() {
   const [center, setCenter]= useState({lat:0,lng:0})
 
 
-  const [newPlace, setNewPlace] = useState([]);
-  // const [newPlaceSelected, setNewPlaceSelected] = useState(null);
+  // const [newPlace, setNewPlace] = useState([]);
+  const [newPosition, setNewPosition] = useState(null);
+
 
   const [nearbyRestaurants, setNearbyRestaurants] = useState([]);
   const [selectedRestaurants, setSelectedRestaurants] = useState(null);
@@ -61,16 +62,27 @@ export default function App() {
     `"Did not have a great experience"`
   ];
 
-  // SET NEW PLACES/MARKERS ON MAPCLICK
-  const onMapClick = React.useCallback((e) => {
-    setNewPlace((current) => [
-      ...current,
-      {
-        lat: e.latLng.lat(),
-        lng: e.latLng.lng()
-      }
-    ]);
-  }, []);
+  // // SET NEW PLACES/MARKERS ON MAPCLICK
+  // const onMapClick = React.useCallback((e) => {
+  //   setNewPlace((current) => [
+  //     ...current,
+  //     {
+  //       lat: e.latLng.lat(),
+  //       lng: e.latLng.lng()
+  //     }
+  //   ]);
+  // }, []);
+  
+// SET NEW PLACES/MARKERS ON MAPCLICK
+const onMapClick = (e) => {
+  setNewPosition({
+    lat: e.latLng.lat(),
+    lng: e.latLng.lng()
+  });
+ 
+};
+
+
 
 
 
@@ -146,8 +158,8 @@ export default function App() {
           }}
         />
 
-        {/* NEW RESTARUANTS MARKERS AND INFOWINDOW */}
-        {newPlace.map((place) => (
+      {/* /* NEW RESTARUANTS MARKERS AND INFOWINDOW */
+        /* {newPlace.map((place) => (
           <AddNewModal
             key={`${place.lat}-${place.lng}`}
             nearbyRestaurants={nearbyRestaurants}
@@ -155,32 +167,21 @@ export default function App() {
             newPlaceLng={place.lng}
             permUpdated={permUpdated}
           />
-        ))}
+        ))}  */}
 
-        {/* {newPlace.map((marker) => (
-          <Marker
-            key={`${marker.lat}-${marker.lng}`}
-            position={{ lat: marker.lat, lng: marker.lng }}
-            onClick={() => {
-              setNewPlaceSelected(marker);
-            }}
-            icon={{
-              url: `/restaurant-icon.png`,
-              origin: new window.google.maps.Point(0, 0),
-              anchor: new window.google.maps.Point(20, 20),
-              scaledSize: new window.google.maps.Size(40, 40)
-            }}
-          />
-        ))}
+  {/* NEW RESTARUANTS MARKERS AND INFOWINDOW */}
+  {
+   newPosition &&
+   <AddNewModal
+       newPlaceLat={newPosition.lat}
+       newPlaceLng={newPosition.lng}
+       onAddRestaurant={(res) => {
+         setNearbyRestaurants([res, ...nearbyRestaurants]);
 
-        {newPlaceSelected ? (
-          <AddNewModal
-            key={newPlaceSelected.name}
-            nearbyRestaurants={nearbyRestaurants}
-            newPlaceSelected={newPlaceSelected}
-            setNewPlaceSelected={setNewPlaceSelected}
-          />
-        ) : null} */}
+       }}
+      setNewPosition = {setNewPosition}
+   />
+ }
 
         {/* NEARBY RESTAURANT MARKERS AND INFOWINDOWS */}
         {nearbyRestaurants.map((place) => (
