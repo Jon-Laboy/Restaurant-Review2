@@ -12,6 +12,8 @@ import StarRatings from "react-star-ratings";
 import FilterRatings from "./Components/FilterRatings";
 import RestaurantList from "./Components/RestaurantList";
 import { v4 as uuidv4 } from 'uuid';
+import personIcon from './img/person-icon.png'
+import restaurantIcon from './img/restaurant-icon.png'
 // GLOBAL VARIABLES
 const API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 
@@ -132,7 +134,7 @@ export default function App() {
             lng: center.lng,
           }}
           icon={{
-            url: "/person-icon.png",
+            url: personIcon,
             scaledSize: new window.google.maps.Size(30, 30),
           }}
         />
@@ -165,7 +167,7 @@ export default function App() {
               setSelectedRestaurants(place);
             }}
             icon={{
-              url: "/restaurant-icon.png",
+              url: restaurantIcon,
               scaledSize: new window.google.maps.Size(40, 40),
             }}
           />
