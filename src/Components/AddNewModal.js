@@ -24,8 +24,7 @@ class AddNewModal extends Component {
 
   closeModal() {
     this.setState({
-      visible: false,
-      permUpdated: false
+      visible: false
     });
   }
 
@@ -52,7 +51,7 @@ class AddNewModal extends Component {
     };
     this.closeModal();
     //UNSHIFT VALUES TO RESTAURANTLIST
-    return this.props.nearbyRestaurants.unshift(newRestaurantObj);
+    return this.props.onAddRestaurant(newRestaurantObj)
     
   }
   render() {
