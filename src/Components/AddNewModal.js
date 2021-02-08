@@ -8,24 +8,10 @@ class AddNewModal extends Component {
       name: "",
       rating: 0,
       address: "",
-      visible: true
+      visible: false
     };
     this.handleChange = this.handleChange.bind(this);
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
     this.submitForm = this.submitForm.bind(this);
-  }
-
-  openModal() {
-    this.setState({
-      visible: true
-    });
-  }
-
-  closeModal() {
-    this.setState({
-      visible: false
-    });
   }
 
   handleChange(e) {
@@ -39,7 +25,6 @@ class AddNewModal extends Component {
 
     let newRestaurantObj = {
       name: this.state.name,
-      //ANSWER TO WHY PARSEFLOAT https://stackoverflow.com/questions/14059201/why-does-firebug-say-tofixed-is-not-a-function
       rating: parseFloat(this.state.rating),
       vicinity: this.state.address,
       geometry: {
@@ -49,19 +34,16 @@ class AddNewModal extends Component {
         }
       }
     };
-    this.closeModal();
-    //UNSHIFT VALUES TO RESTAURANTLIST
     return this.props.onAddRestaurant(newRestaurantObj)
-    
   }
   render() {
     return (
       <Modal
-        visible={this.state.visible}
+        visible={this.props.visible}
         width="400"
         height="300"
         effect="fadeInLeft"
-        onClickAway={() => this.closeModal()}
+        onClickAway={() => this.props.closeModal()}
       >
         <div>
           <h3>Add/Edit Restaurant</h3>
