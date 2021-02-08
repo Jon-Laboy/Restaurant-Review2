@@ -50,12 +50,9 @@ export default function App() {
   const [query, setQuery] = useState("");
   const [infoWindowName, setInfoWindowName] = useState("");
 
-  const [map, setMap] = useState(null)
 
   const [permUpdated, setPermUpdated] = useState(null)
 
-  // const [newCenterLat, setNewCenterLat] = useState(null)
-  // const [newCenterLng, setNewCenterLng] = useState(null)
 
   const reviewsArray = [
     `"Food/service was great!"`,
@@ -84,8 +81,6 @@ export default function App() {
         `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${center.lat},${center.lng}&radius=6047&type=restaurant&key=${API_KEY}`
       );
       const data = await response.json();
-      setPermUpdated(true)
-      // console.log(data)
       const filteredRatings =
         data.results &&
         data.results.filter((place) =>
@@ -93,7 +88,6 @@ export default function App() {
             ? place
             : null
         );
-      //  console.log(filteredRatings);
       setNearbyRestaurants(filteredRatings);
     }
     fetchRestaurants();
@@ -110,11 +104,9 @@ export default function App() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         setCenter((prevState) => ({
-          currentLatLng: {
             ...prevState.currentLatLng,
             lat: position.coords.latitude,
             lng: position.coords.longitude
-          }
         }));
       });
     } else {
@@ -123,9 +115,9 @@ export default function App() {
   }
   showCurrentLocation();
 
-  const center = {
-    lat: userState.currentLatLng.lat,
-    lng: userState.currentLatLng.lng
+  const mapCenter = {
+    lat: center.lat,
+    lng: center.lng
   };
 
   if (loadError) return "Error loading map";
@@ -136,19 +128,17 @@ export default function App() {
       <h1>Restaurant Review</h1>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        center={center}
+        center={mapCenter}
         options={options}
         onClick={onMapClick}
-        // onLoad={onLoad}
-        // onUnmount={onUnmount}
         zoom={13}
 
       >
         {/* PERSON-USER ICON */}
         <Marker
           position={{
-            lat: userState.currentLatLng.lat,
-            lng: userState.currentLatLng.lng
+            lat: center.lat,
+            lng: center.lng
           }}
           icon={{
             url: "/person-icon.png",
