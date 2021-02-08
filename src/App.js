@@ -65,29 +65,6 @@ export default function App() {
     `"Did not have a great experience"`
   ];
 
-
-//   const onLoad = React.useCallback(function callback(map) {
-//  //GET NEW CENTER AFTER PANNING TO GET OTHER RESTAURANTS IN NEW LOCATION 
-//     map.addListener("dragend", () => {
-
-//       let newLat = map.getCenter().lat();
-//       let newLng = map.getCenter().lng();
-
-//       setUserState((prevState) => ({
-//         currentLatLng: {
-//           ...prevState.currentLatLng,
-//           lat: newLat,
-//           lng: newLng
-//         }
-//       }));
-//     })
-
-//   }, [])
-
-//   const onUnmount = React.useCallback(function callback(map) {
-//     setMap(null)
-//   }, [])
-
   // SET NEW PLACES/MARKERS ON MAPCLICK
   const onMapClick = React.useCallback((e) => {
     setNewPlace((current) => [
