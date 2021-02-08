@@ -13,6 +13,8 @@ import FilterRatings from "./Components/FilterRatings";
 import RestaurantList from "./Components/RestaurantList";
 
 // GLOBAL VARIABLES
+const API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
+
 const libraries = ["places"];
 
 const mapContainerStyle = {
@@ -29,7 +31,7 @@ const options = {
 // APP COMPONENT
 export default function App() {
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "AIzaSyDyb_aKsyq5CtMO83PKMbTVL79kCLTxqc8",
+    googleMapsApiKey: API_KEY,
     libraries
   });
 
@@ -103,7 +105,7 @@ export default function App() {
   useEffect(() => {
     async function fetchRestaurants() {
       const response = await fetch(
-        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${userState.currentLatLng.lat},${userState.currentLatLng.lng}&radius=6047&type=restaurant&key=AIzaSyDyb_aKsyq5CtMO83PKMbTVL79kCLTxqc8`
+        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${userState.currentLatLng.lat},${userState.currentLatLng.lng}&radius=6047&type=restaurant&key=${API_KEY}`
       );
       const data = await response.json();
       setPermUpdated(true)
@@ -245,7 +247,7 @@ export default function App() {
             <div>
               <h4>{selectedRestaurants.name}</h4>
               <img
-                src={`https://maps.googleapis.com/maps/api/streetview?size=160x80&location=${selectedRestaurants.geometry.location.lat},${selectedRestaurants.geometry.location.lng}&fov=80&heading=70&pitch=0&key=AIzaSyDyb_aKsyq5CtMO83PKMbTVL79kCLTxqc8`}
+                src={`https://maps.googleapis.com/maps/api/streetview?size=160x80&location=${selectedRestaurants.geometry.location.lat},${selectedRestaurants.geometry.location.lng}&fov=80&heading=70&pitch=0&key=${API_KEY}`}
                 alt="restaurant-street-view"
               />
               <div style={{ color: "gold" }}>
