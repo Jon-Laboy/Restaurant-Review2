@@ -2,6 +2,10 @@ import React from "react";
 import StarRatings from "react-star-ratings";
 import AddReview from "./AddReview";
 
+function sortAlphabetically(a, b) {
+  return a.name.localeCompare(b.name);
+}
+
 export default function RestaurantList({
   nearbyRestaurants,
   setQuery,
