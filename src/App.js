@@ -64,27 +64,27 @@ export default function App() {
   ];
 
 
-  const onLoad = React.useCallback(function callback(map) {
- //GET NEW CENTER AFTER PANNING TO GET OTHER RESTAURANTS IN NEW LOCATION 
-    map.addListener("dragend", () => {
+//   const onLoad = React.useCallback(function callback(map) {
+//  //GET NEW CENTER AFTER PANNING TO GET OTHER RESTAURANTS IN NEW LOCATION 
+//     map.addListener("dragend", () => {
 
-      let newLat = map.getCenter().lat();
-      let newLng = map.getCenter().lng();
+//       let newLat = map.getCenter().lat();
+//       let newLng = map.getCenter().lng();
 
-      setUserState((prevState) => ({
-        currentLatLng: {
-          ...prevState.currentLatLng,
-          lat: newLat,
-          lng: newLng
-        }
-      }));
-    })
+//       setUserState((prevState) => ({
+//         currentLatLng: {
+//           ...prevState.currentLatLng,
+//           lat: newLat,
+//           lng: newLng
+//         }
+//       }));
+//     })
 
-  }, [])
+//   }, [])
 
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null)
-  }, [])
+//   const onUnmount = React.useCallback(function callback(map) {
+//     setMap(null)
+//   }, [])
 
   // SET NEW PLACES/MARKERS ON MAPCLICK
   const onMapClick = React.useCallback((e) => {
@@ -161,8 +161,8 @@ export default function App() {
         center={center}
         options={options}
         onClick={onMapClick}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
+        // onLoad={onLoad}
+        // onUnmount={onUnmount}
         zoom={13}
 
       >
